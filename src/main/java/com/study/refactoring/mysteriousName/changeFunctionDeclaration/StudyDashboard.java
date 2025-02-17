@@ -1,4 +1,4 @@
-package com.study.refactoring.mysteriousName.before;
+package com.study.refactoring.mysteriousName.changeFunctionDeclaration;
 
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueComment;
@@ -14,13 +14,12 @@ import java.util.Set;
 public class StudyDashboard {
     private Set<String> username = new HashSet<>();
     private Set<String> reviews = new HashSet<>();
+    
+    private void loadReviews() throws IOException {
+        GitHub gitHub = new GitHubBuilder().withOAuthToken("").build();
+        GHRepository repository = gitHub.getRepository("whiteship/live-study");
+        GHIssue issue = repository.getIssue(30);
 
-    /**
-     * 스터디 리뷰 이슈에 작성되어 있는 리뷰어 목록과 리뷰를 읽어옵니다.
-     * @param issue
-     * @throws IOException
-     */
-    private void studyReviews(GHIssue issue) throws IOException {
         List<GHIssueComment> comments = issue.getComments();
         for (GHIssueComment comment : comments) {
             username.add(comment.getUser().getName());
@@ -37,12 +36,8 @@ public class StudyDashboard {
     }
 
     public static void main(String[] args) throws IOException {
-        GitHub gitHub = new GitHubBuilder().withOAuthToken("").build();
-        GHRepository repository = gitHub.getRepository("whiteship/live-study");
-        GHIssue issue = repository.getIssue(30);
-
         StudyDashboard studyDashboard = new StudyDashboard();
-        studyDashboard.studyReviews(issue);
+        studyDashboard.loadReviews();
         studyDashboard.getUsernames().forEach(System.out::println);
         studyDashboard.getReviews().forEach(System.out::println);
     }
