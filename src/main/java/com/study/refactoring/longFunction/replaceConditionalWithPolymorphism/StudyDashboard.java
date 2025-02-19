@@ -29,7 +29,10 @@ public class StudyDashboard {
 
     private void print() throws IOException, InterruptedException {
         checkGithubIssues(getGhRepository());
-        new StudyPrinter(this.totalNumberOfEvents, this.participants, PrinterMode.MARKDOWN).execute();
+        // 사용하고 싶은 Printer를 생성해주면 됨.
+        new MarkdownPrinter(this.totalNumberOfEvents, this.participants).execute();
+        //new CvsPrinter(this.totalNumberOfEvents, this.participants).execute();
+        //new ConsolePrinter(this.totalNumberOfEvents, this.participants).execute();
     }
 
     private GHRepository getGhRepository() throws IOException {
