@@ -1,8 +1,6 @@
 package com.study.refactoring.mutableData.replaceDerivedVariableWithQuery;
 
 public class Discount {
-
-    private double discountedTotal;
     private double discount;
 
     private double baseTotal;
@@ -12,11 +10,10 @@ public class Discount {
     }
 
     public double getDiscountedTotal() {
-        return this.discountedTotal;
+        return this.baseTotal - this.discount;
     }
 
     public void setDiscount(double number) {
         this.discount = number;
-        this.discountedTotal = this.baseTotal - this.discount;
     }
 }
