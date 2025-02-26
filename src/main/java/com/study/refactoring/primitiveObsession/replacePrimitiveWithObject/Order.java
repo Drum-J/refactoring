@@ -2,13 +2,17 @@ package com.study.refactoring.primitiveObsession.replacePrimitiveWithObject;
 
 public class Order {
 
-    private String priority;
+    private Priority priority;
 
-    public Order(String priority) {
+    public Order(Priority priority) {
         this.priority = priority;
     }
 
-    public String getPriority() {
+    public Order(String priorityValue) {
+        this(new Priority(priorityValue));
+    }
+
+    public Priority getPriority() {
         return priority;
     }
 }
